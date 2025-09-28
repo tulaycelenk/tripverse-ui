@@ -1,19 +1,15 @@
-import React from 'react'
-
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import Tour from './Tour';
-const { Header} = Layout;
-const items = Array.from({ length: 15 }).map((_, index) => ({
-  key: index + 1,
-  label: `nav ${index + 1}`,
-}));
-
-const items2 = [{key:1 ,label:"Most Rated"}, {key:2 ,label:"About Us"}]
+import React, { useEffect } from 'react'
+import { Layout, Menu, } from 'antd';
+import { ShoppingOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+const { Header } = Layout;
 
 function Navbar() {
- const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+  const { tourIds } = useSelector((store) => store.basket);
+  const basketItemCount = tourIds.length
+  const items2 = [{ key: 1, label: <span onClick={() => navigate("/")}> Home </span>}, { key: 2, label: "About Us" }, { key: 3, label: <><ShoppingOutlined onClick={() => navigate("/basket")} />{basketItemCount}</> }]
+  const navigate = useNavigate();
 
   return (
     <Layout>
@@ -27,8 +23,8 @@ function Navbar() {
           style={{ flex: 1, minWidth: 0 }}
         />
       </Header>
-      
-      
+
+
     </Layout>
   )
 }

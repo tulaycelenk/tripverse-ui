@@ -7,14 +7,11 @@ import ToursPage from './ToursPage'
 
 function Home() {
 
-
-
   return (
     <>
 
     <Navbar/> 
     <Content/>
-    <ToursPage/>
     <Footer/>
   
     </>
