@@ -1,26 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import axios from 'axios';
 
 const initialState = {
-    tours: [{
-        id: 1,
-        name: "Italy",
-        price: 12345.99,
-        isAdult: true,
-        startTime: null,
-        endTime: null,
-        description: "pisa,venice,rome,florence",
-        point: 4.9
-    }, {
-        id: 2,
-        name: "France",
-        price: 15432.99,
-        isAdult: true,
-        startTime: null,
-        endTime: null,
-        description: "paris, st. something",
-        point: 4.4
-    },]
+    tours: []
 }
+
+const BASE_URL = "http://localhost:8080";
+
+export const getAllTours = createAsyncThunk("getAllTours", async () => {
+    const response = await axios.get(`${BASE_URL}/tour/all`);
+    return response.data;
+})
 
 export const tourSlice = createSlice({
     name: "tour",
@@ -29,7 +19,9 @@ export const tourSlice = createSlice({
 
     },
     extraReducers: (builder) => {
-
+        builder.addCase(getAllTours.fulfilled, (state, action) => {
+            state.tours = action.payload.tours;
+        })
     }
 })
 

@@ -1,13 +1,16 @@
 import React from 'react'
-import {Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme } from 'antd';
+import ToursPage from '../pages/ToursPage';
+import { Route, Routes } from 'react-router-dom';
+import BasketPage from '../pages/BasketPage';
 
-const { Content: AntContent} = Layout;
+const { Content: AntContent } = Layout;
 
 function Content() {
- const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-  
+    const {
+        token: { colorBgContainer, borderRadiusLG },
+    } = theme.useToken();
+
     return (
         <AntContent style={{ padding: '0 48px' }}>
             <div
@@ -18,7 +21,13 @@ function Content() {
                     borderRadius: borderRadiusLG,
                 }}
             >
-                Content
+                <Routes>
+                    <Route path='/' element={ <ToursPage />} />
+                    <Route path='/basket' element={<BasketPage/>} />
+                    
+                    {/* <Route path='/product-details/:id' element={<ProductDetails />} /> */}
+                </Routes>
+               
             </div>
 
         </AntContent>
